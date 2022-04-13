@@ -8,7 +8,7 @@ const WeatherData = axios.create({
 
 export const WeatherAPI = {
     CurrentWeatherData(city) {
-        return WeatherData.get('?q=' + city + '&appid=' + api)
+        return WeatherData.get('?q=' + city + '&units=metric'+ '&appid=' + api)
             .then((response) => {
                 console.log(response)
                 return response.data

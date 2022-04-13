@@ -1,12 +1,12 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
-import SideMenuReducer from "./SideMenuReducer";
+import WeatherReducer from "./WeatherReducer";
 import { reducer as formReducer } from 'redux-form'
 
 
 //сбор всех редьюсоров воедино и создание общего редьюсора
 let reducers = combineReducers({
-    Side: SideMenuReducer,
+    WeatherPage: WeatherReducer,
     form: formReducer
 })
 

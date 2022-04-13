@@ -12,6 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import CloudIcon from '@mui/icons-material/Cloud';
 import {Route, Routes} from "react-router-dom";
+import WeatherContainer from "../Content/Weather/WeatherContainer";
 
 const drawerWidth = 240;
 const SideMenu = (props) => {
@@ -43,7 +44,7 @@ const SideMenu = (props) => {
             <Box component="main" sx={{flexGrow: 1, bgcolor: 'background.default', p: 3}}>
             <Toolbar/>
             <Routes>
-                <Route index element={<div></div>}/>
+                <Route index element={<WeatherContainer/>}/>
             </Routes>
         </Box>
 </Box>

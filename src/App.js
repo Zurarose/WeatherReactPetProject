@@ -1,10 +1,10 @@
 import './App.css';
-import SideContainer from "./Parts/Sider/SiderContainer";
+import SideMenu from "./Parts/Sider/SideMenu";
 
 function App() {
   return (
     <div className="App">
-        <SideContainer/>
+        <SideMenu/>
     </div>
   );
 }
