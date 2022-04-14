@@ -1,7 +1,9 @@
 //Редьюсор, который создает action и общается с диспатчем
-import {WeatherAPI} from "../API/api";
+import {PlacesAPI, WeatherAPI} from "../API/api";
 
-const CurrentWeather = "GetCurrentWeather"
+const SetCurrentWeather = "SetCurrentWeather"
+const SetCountriesList = "SetCountriesList"
+const SetCitiesList = "SetCitiesList"
 
 let initialState = {
     data: {
@@ -47,33 +49,74 @@ let initialState = {
         "id": 703448,
         "name": "Kyiv",
         "cod": 200
-    }
+    },
+    countries: null,
+    cities: [],
 }
 
 //Выбор действия в зависимости от type action
 function WeatherReducer(state = initialState, action) {
-    switch (action.type){
-        case CurrentWeather: return {
-            ...state,
-            data: action.data
-        }
+    switch (action.type) {
+        case SetCurrentWeather:
+            return {
+                ...state,
+                data: action.data
+            }
+        case SetCountriesList:
+            return {
+                ...state,
+                countries: action.data
+            }
+        case SetCitiesList:
+            return {
+                ...state,
+                cities: action.data
+            }
 
     }
     return state
 }
 
 export const getWeatherThunk = () => {
-    return (dispatch) =>
-    {
-        WeatherAPI.CurrentWeatherData("\n" + "Tbilisi").then((response) =>{
+    return (dispatch) => {
+        /*WeatherAPI.CurrentWeatherData("\n" + "Tbilisi").then((response) => {
             dispatch(getCurrentWeather(response))
+        })*/
+    }
+}
+export const getCountriesThunk = () => {
+    return (dispatch) =>{
+         PlacesAPI.CountryList().then((response) => {
+            dispatch(getCountries(response))
+        })
+
+    }
+}
+export const getCitiesThunk = (country) => {
+    return (dispatch) => {
+        PlacesAPI.CitiesList(country).then((response) => {
+            dispatch(getCities(response))
         })
     }
 }
 
 export function getCurrentWeather(data) {
     return {
-        type: CurrentWeather,
+        type: SetCurrentWeather,
+        data: data
+    }
+}
+
+export function getCountries(data) {
+    return {
+        type: SetCountriesList,
+        data: data
+    }
+}
+
+export function getCities(data) {
+    return {
+        type: SetCitiesList,
         data: data
     }
 }
