@@ -20,9 +20,6 @@ const WeatherSelect = React.memo((props) => {
         const loadingCountries = openCountry && optionsCountry.length === 0;
         const loadingCities = openCity && optionsCity.length === 0;
 
-        useEffect(() => {
-            props.getWeatherThunk("Kyiv")
-        }, [])
 
         useEffect(() => {
             setActive(true)
@@ -53,6 +50,7 @@ const WeatherSelect = React.memo((props) => {
         }, [openCity]);
 
         function setWeather() {
+            props.clearData()
             props.getWeatherThunk(valueCity)
         }
 

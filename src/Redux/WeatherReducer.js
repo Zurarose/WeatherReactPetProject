@@ -7,50 +7,7 @@ const SetCitiesList = "SetCitiesList"
 const SetPredictWeather = "SetPredictWeather"
 
 let initialState = {
-    data: {
-        "coord": {
-            "lon": 30.5167,
-            "lat": 50.4333
-        },
-        "weather": [
-            {
-                "id": 804,
-                "main": "Clouds",
-                "description": "overcast clouds",
-                "icon": "04d"
-            }
-        ],
-        "base": "stations",
-        "main": {
-            "temp": 5.53,
-            "feels_like": 4.21,
-            "temp_min": 4.25,
-            "temp_max": 5.96,
-            "pressure": 1002,
-            "humidity": 90
-        },
-        "visibility": 10000,
-        "wind": {
-            "speed": 1.79,
-            "deg": 32,
-            "gust": 4.92
-        },
-        "clouds": {
-            "all": 100
-        },
-        "dt": 1649852281,
-        "sys": {
-            "type": 2,
-            "id": 2003742,
-            "country": "UA",
-            "sunrise": 1649819323,
-            "sunset": 1649868473
-        },
-        "timezone": 10800,
-        "id": 703448,
-        "name": "Kyiv",
-        "cod": 200
-    },
+    data: null,
     predict: null,
     countries: null,
     cities: [],

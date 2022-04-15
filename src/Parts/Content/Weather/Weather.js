@@ -4,7 +4,7 @@ import List from '@mui/material/List';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {Card, CardContent, ListItem} from "@mui/material";
+import {Card, CardContent, LinearProgress, ListItem} from "@mui/material";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
 import ShowerIcon from '@mui/icons-material/Shower';
@@ -41,104 +41,125 @@ const Weather = React.memo((props) => {
             }
         }
     }
-
-    const [weatherListPredict, setWeatherListPredict] = useState(null)
+    const [weatherPredict, setWeatherPredict] = useState(null)
+    const [currentWeather, setCurrentWeather] = useState(null)
+    let list = null
+    if (weatherPredict) {
+        debugger
+        list = weatherPredict.daily.map((day, i) => {
+            if (i > 0) {
+                let days = new Date()
+                days.setDate(days.getDate() + i)
+                return (<Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}
+                              key={i}>
+                    <CardContent sx={{p: 0}}>
+                        <List sx={{p: 0}}>
+                            <ListSubheader>{days.getUTCDate() + "th "}</ListSubheader>
+                            <ListItem sx={{px: 1}}>
+                                <ListItemIcon>
+                                    <WeatherIcon now={day.weather[0].main}/>
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={day.weather[0].main}/>
+                            </ListItem>
+                            <ListItem sx={{px: 1}}>
+                                <ListItemIcon>
+                                    <DeviceThermostatIcon/>
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary={day.temp.day + "℃"}/>
+                            </ListItem>
+                            <ListItem sx={{display: "flex", p: 1}}>
+                                <ListItemText sx={{textAlign: 'center', borderRight: 1, borderColor: 'grey.500'}}
+                                              primary={"Min: " + day.temp.min + "℃"}/>
+                                <ListItemText sx={{textAlign: 'center'}}
+                                              primary={"Max: " + day.temp.max + "℃"}/>
+                            </ListItem>
+                            <ListItem sx={{px: 1}}>
+                                <ListItemIcon>
+                                    <AirIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary={day.wind_speed + " m/h"}/>
+                            </ListItem>
+                        </List>
+                    </CardContent>
+                </Card>)
+            }
+        })
+    }
+    function clearData() {
+        setWeatherPredict(null)
+        setCurrentWeather(null)
+    }
 
     useEffect(() => {
+        props.getWeatherThunk("Kyiv")
+    }, [])
 
+    useEffect(() => {
+        setCurrentWeather(props.CurrentWeather)
+    }, [props.CurrentWeather])
+
+    useEffect(() => {
         if (props.PredictWeather) {
-            let list = props.PredictWeather.daily.map((day, i) => {
-                if (i > 0) {
-                    let days = new Date()
-                    days.setDate(days.getDate() + i)
-                    return (<Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}} key={i}>
-                        <CardContent sx={{p: 0}}>
-                            <List sx={{p: 0}}>
-                                <ListSubheader>{days.getUTCDate() + "th "}</ListSubheader>
-                                <ListItem sx={{px: 1}}>
-                                    <ListItemIcon>
-                                        <WeatherIcon now={day.weather[0].main}/>
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={day.weather[0].main}/>
-                                </ListItem>
-                                <ListItem sx={{px: 1}}>
-                                    <ListItemIcon>
-                                        <DeviceThermostatIcon/>
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={day.temp.day + "℃"}/>
-                                </ListItem>
-                                <ListItem sx={{px: 1}}>
-                                    <ListItemIcon>
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={"Min: " + day.temp.min + "℃ Max: " + day.temp.max + "℃"}/>
-                                </ListItem>
-                                <ListItem sx={{px: 1}}>
-                                    <ListItemIcon>
-                                        <AirIcon/>
-                                    </ListItemIcon>
-                                    <ListItemText primary={day.wind_speed + " m/h"}/>
-                                </ListItem>
-                            </List>
-                        </CardContent>
-                    </Card>)
-                }
-            })
-            setWeatherListPredict(list)
+            setWeatherPredict(props.PredictWeather)
         }
     }, [props.PredictWeather])
-
-    return (<Box>
-        <WeatherSelect {...props}/>
-        <Stack sx={{display: 'flex', flexDirection: 'row', pt: 3, borderBottom: 1, borderColor: 'grey.500'}}>
-            <List
-                sx={{width: '20%', bgcolor: 'background.paper'}}
-                component="nav" aria-labelledby="nested-list-subheader" subheader={
-                <Typography variant="h5">Information</Typography>}>
-                <ListSubheader>{`City, Country`}</ListSubheader>
-                <ListItem>
-                    <ListItemIcon>
-                        <LocationOnIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary={props.CurrentWeather.name + ", " + props.CurrentWeather.sys.country}/>
-                </ListItem>
-                <ListSubheader>{`Weather information`}</ListSubheader>
-                <ListItem>
-                    <ListItemIcon>
-                        <WeatherIcon now={props.CurrentWeather.weather[0].main}/>
-                    </ListItemIcon>
-                    <ListItemText primary={props.CurrentWeather.weather[0].main}/>
-                </ListItem>
-                <ListItem>
-                    <ListItemIcon>
-                        <DeviceThermostatIcon/>
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={props.CurrentWeather.main.temp + "℃ (Feels like " + props.CurrentWeather.main.feels_like + "℃)"}/>
-                </ListItem>
-                <ListItem>
-                    <ListItemIcon>
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={"Min: " + props.CurrentWeather.main.temp_min + "℃ Max: " + props.CurrentWeather.main.temp_max + "℃"}/>
-                </ListItem>
-                <ListItem>
-                    <ListItemIcon>
-                        <AirIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary={props.CurrentWeather.wind.speed + " m/h"}/>
-                </ListItem>
-            </List>
-            <Box sx={{width: '80%'}}>
-                <Typography sx={{textAlign: 'left', pl: 1}} variant="h5">Weather forecast for 7 days</Typography>
-                <Stack sx={{display: "flex", flexDirection: "row", mt: 0}}>
-                    {weatherListPredict}
-                </Stack>
-            </Box>
-        </Stack>
-    </Box>)
+    return (
+        <Box>
+            <WeatherSelect {...props} clearData={clearData}/>
+            <Stack sx={{display: 'flex', flexDirection: 'row', pt: 3, borderBottom: 1, borderColor: 'grey.500'}}>
+                <List
+                    sx={{width: '20%', bgcolor: 'background.paper', borderRight: 1, borderColor: 'grey.500'}}
+                    component="nav" aria-labelledby="nested-list-subheader" subheader={
+                    <Typography variant="h5">Current weather</Typography>}>
+                    {currentWeather ? <>
+                        <ListSubheader>{`City, Country`}</ListSubheader>
+                        <ListItem>
+                            <ListItemIcon>
+                                <LocationOnIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={currentWeather.name + ", " + currentWeather.sys.country}/>
+                        </ListItem>
+                        <ListSubheader>{`Weather information`}</ListSubheader>
+                        <ListItem>
+                            <ListItemIcon>
+                                <WeatherIcon now={currentWeather.weather[0].main}/>
+                            </ListItemIcon>
+                            <ListItemText primary={currentWeather.weather[0].main}/>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemIcon>
+                                <DeviceThermostatIcon/>
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={currentWeather.main.temp + "℃"}/>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemText sx={{textAlign: 'center', borderRight: 1, borderColor: 'grey.500'}}
+                                          primary={"Min: " + currentWeather.main.temp_min + "℃"}/>
+                            <ListItemText sx={{textAlign: 'center'}}
+                                          primary={"Max: " + currentWeather.main.temp_max + "℃"}/>
+                        </ListItem>
+                        <ListItem>
+                            <ListItemIcon>
+                                <AirIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary={currentWeather.wind.speed + " m/h"}/>
+                        </ListItem>
+                    </> : <LinearProgress sx={{m: 1}}/>}
+                </List>
+                <Box sx={{width: '80%'}}>
+                    <Typography sx={{textAlign: 'left', pl: 1}} variant="h5">Weather forecast for 7 days</Typography>
+                    <Stack sx={{display: "flex", flexDirection: "row", mt: 0}}>
+                        {list ? list : <Box sx={{width: '100%'}}>
+                            <LinearProgress sx={{ m: 1}}/>
+                        </Box>}
+                    </Stack>
+                </Box>
+            </Stack>
+        </Box>
+    )
 });
 
 export default Weather
