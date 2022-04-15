@@ -2,7 +2,6 @@ import React from "react";
 import {useEffect, useState} from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import CircularProgress from '@mui/material/CircularProgress';
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
@@ -22,11 +21,17 @@ const WeatherSelect = React.memo((props) => {
         const loadingCities = openCity && optionsCity.length === 0;
 
         useEffect(() => {
+            props.getWeatherThunk("Kyiv")
+        }, [])
+
+        useEffect(() => {
             setActive(true)
+            setOptionsCity([])
+            setValueCity(null)
             props.getCountriesThunk()
             setOptionsCountry(props.CountriesList)
 
-        }, [loadingCountries], props.CitiesList);
+        }, [loadingCountries]);
 
         useEffect(() => {
             if (!openCountry) {
@@ -35,7 +40,7 @@ const WeatherSelect = React.memo((props) => {
         }, [openCountry]);
 
         useEffect(() => {
-            if (setOptionsCity.length !==0) {
+            if (setOptionsCity.length !== 0) {
                 setActive(false)
             }
             setOptionsCity(props.CitiesList)
@@ -47,13 +52,16 @@ const WeatherSelect = React.memo((props) => {
             }
         }, [openCity]);
 
+        function setWeather() {
+            props.getWeatherThunk(valueCity)
+        }
+
         return (
             <Stack direction="row" spacing={1}>
-                <Autocomplete sx
+                <Autocomplete
                     value={valueCountry}
                     onChange={(event, newValue) => {
                         setValueCountry(newValue)
-                        setValueCity(null)
                         props.getCitiesThunk(newValue)
                     }}
                     inputValue={inputValueCountry}
@@ -76,14 +84,6 @@ const WeatherSelect = React.memo((props) => {
                         <TextField
                             {...params}
                             label="Country"
-                            InputProps={{
-                                ...params.InputProps,
-                                endAdornment: (
-                                    <React.Fragment>
-                                        {loadingCountries ? <CircularProgress color="inherit" size={20}/> : null}
-                                    </React.Fragment>
-                                ),
-                            }}
                         />
                     )}
                 />
@@ -113,18 +113,11 @@ const WeatherSelect = React.memo((props) => {
                         <TextField
                             {...params}
                             label="Cities"
-                            InputProps={{
-                                ...params.InputProps,
-                                endAdornment: (
-                                    <React.Fragment>
-                                        {loadingCities ? <CircularProgress color="inherit" size={20}/> : null}
-                                    </React.Fragment>
-                                ),
-                            }}
+
                         />
                     )}
                 />
-                <Button variant="contained" size="small">Submit</Button>
+                <Button onClick={setWeather} variant="contained" size="small">Submit</Button>
             </Stack>
         );
     })

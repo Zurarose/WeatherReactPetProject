@@ -3,6 +3,9 @@ import {createSelector} from "reselect";
 export function getStateCurrentWeather(state) {
     return state.WeatherPage.data
 }
+export function getStatePredictWeather(state) {
+    return state.WeatherPage.predict
+}
 
 export function getStateCountriesList(state) {
     return state.WeatherPage.countries

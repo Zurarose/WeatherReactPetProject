@@ -4,7 +4,7 @@ import {getCitiesThunk, getCountriesThunk, getWeatherThunk} from "../../../Redux
 import {
     getStateCitiesList,
     getStateCountriesList,
-    getStateCurrentWeather,
+    getStateCurrentWeather, getStatePredictWeather,
     getSuperSelector
 } from "../../../Selectors/Selectors";
 
@@ -19,6 +19,7 @@ function mapStateToProps(state){
         CountriesList: getSuperSelector(state),
         CitiesList: getStateCitiesList(state),
         CurrentWeather: getStateCurrentWeather(state),
+        PredictWeather: getStatePredictWeather(state)
     }
 }
 

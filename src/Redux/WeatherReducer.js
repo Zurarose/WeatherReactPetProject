@@ -4,6 +4,7 @@ import {PlacesAPI, WeatherAPI} from "../API/api";
 const SetCurrentWeather = "SetCurrentWeather"
 const SetCountriesList = "SetCountriesList"
 const SetCitiesList = "SetCitiesList"
+const SetPredictWeather = "SetPredictWeather"
 
 let initialState = {
     data: {
@@ -50,6 +51,7 @@ let initialState = {
         "name": "Kyiv",
         "cod": 200
     },
+    predict: null,
     countries: null,
     cities: [],
 }
@@ -72,16 +74,27 @@ function WeatherReducer(state = initialState, action) {
                 ...state,
                 cities: action.data
             }
+        case SetPredictWeather:
+            return {
+                ...state,
+                predict: action.data
+            }
+        default:
+            return state
 
     }
-    return state
 }
 
-export const getWeatherThunk = () => {
-    return (dispatch) => {
-        /*WeatherAPI.CurrentWeatherData("\n" + "Tbilisi").then((response) => {
+export const getWeatherThunk = (city) => {
+    let result = {}
+    return async (dispatch) => {
+        await WeatherAPI.CurrentWeatherData(city).then((response) => {
+            result = response
             dispatch(getCurrentWeather(response))
-        })*/
+        })
+        WeatherAPI.WeatherDataSevenDays(result.coord.lat, result.coord.lon).then((response) => {
+            dispatch(getPredictWeather(response))
+        })
     }
 }
 export const getCountriesThunk = () => {
@@ -103,6 +116,12 @@ export const getCitiesThunk = (country) => {
 export function getCurrentWeather(data) {
     return {
         type: SetCurrentWeather,
+        data: data
+    }
+}
+export function getPredictWeather(data) {
+    return {
+        type: SetPredictWeather,
         data: data
     }
 }
