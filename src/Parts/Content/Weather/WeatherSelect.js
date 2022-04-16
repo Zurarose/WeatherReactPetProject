@@ -22,7 +22,6 @@ const WeatherSelect = React.memo((props) => {
 
 
         useEffect(() => {
-            setActive(true)
             setOptionsCity([])
             setValueCity(null)
             props.getCountriesThunk()
@@ -59,6 +58,7 @@ const WeatherSelect = React.memo((props) => {
                 <Autocomplete
                     value={valueCountry}
                     onChange={(event, newValue) => {
+                        setActive(true)
                         setValueCountry(newValue)
                         props.getCitiesThunk(newValue)
                     }}
