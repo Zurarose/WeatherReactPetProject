@@ -111,11 +111,10 @@ const WeatherSelect = React.memo((props) => {
                         <TextField
                             {...params}
                             label="Cities"
-
                         />
                     )}
                 />
-                <Button onClick={setWeather} variant="contained" size="small">Submit</Button>
+                <Button disabled={valueCity ? false : true} onClick={setWeather} variant="contained" size="small">Submit</Button>
             </Stack>
         );
     })

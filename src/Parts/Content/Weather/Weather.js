@@ -45,7 +45,6 @@ const Weather = React.memo((props) => {
     const [currentWeather, setCurrentWeather] = useState(null)
     let list = null
     if (weatherPredict) {
-        debugger
         list = weatherPredict.daily.map((day, i) => {
             if (i > 0) {
                 let days = new Date()
@@ -108,9 +107,10 @@ const Weather = React.memo((props) => {
     return (
         <Box>
             <WeatherSelect {...props} clearData={clearData}/>
-            <Stack sx={{display: 'flex', flexDirection: 'row', pt: 3, borderBottom: 1, borderColor: 'grey.500'}}>
+            <Stack sx={{display: 'flex', pt: 3, borderBottom: 1, borderColor: 'grey.500'}}
+                   direction={{ xs: 'column',sm: 'column', md: 'column', lg: 'row' }}>
                 <List
-                    sx={{width: '20%', bgcolor: 'background.paper', borderRight: 1, borderColor: 'grey.500'}}
+                    sx={{width: {xs: '100%', sm: '100%', md: '100%', lg: '20%' }, bgcolor: 'background.paper', borderRight: 1, borderColor: 'grey.500'}}
                     component="nav" aria-labelledby="nested-list-subheader" subheader={
                     <Typography variant="h5">Current weather</Typography>}>
                     {currentWeather ? <>
@@ -149,7 +149,7 @@ const Weather = React.memo((props) => {
                         </ListItem>
                     </> : <LinearProgress sx={{m: 1}}/>}
                 </List>
-                <Box sx={{width: '80%'}}>
+                <Box sx={{width: {xs: '100%', sm: '100%', md: '100%', lg: '80%' }}}>
                     <Typography sx={{textAlign: 'left', pl: 1}} variant="h5">Weather forecast for 7 days</Typography>
                     <Stack sx={{display: "flex", flexDirection: "row", mt: 0}}>
                         {list ? list : <Box sx={{width: '100%'}}>
