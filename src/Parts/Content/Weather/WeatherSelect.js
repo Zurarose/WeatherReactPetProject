@@ -114,7 +114,7 @@ const WeatherSelect = React.memo((props) => {
                         />
                     )}
                 />
-                <Button disabled={valueCity ? false : true} onClick={setWeather} variant="contained" size="small">Submit</Button>
+                <Button disabled={!valueCity} onClick={setWeather} variant="contained" size="small">Submit</Button>
             </Stack>
         );
     })

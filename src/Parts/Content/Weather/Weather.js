@@ -4,7 +4,6 @@ import List from '@mui/material/List';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import {Card, CardContent, LinearProgress, ListItem} from "@mui/material";
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
 import ShowerIcon from '@mui/icons-material/Shower';
@@ -17,6 +16,8 @@ import AirIcon from '@mui/icons-material/Air';
 import WeatherSelect from "./WeatherSelect";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import {Card, CardContent, LinearProgress, ListItem} from "@mui/material";
+import WeatherPredictCard from "./WeatherPredictCard";
 
 const Weather = React.memo((props) => {
     const WeatherIcon = (weather) => {
@@ -46,43 +47,10 @@ const Weather = React.memo((props) => {
     let list = null
     if (weatherPredict) {
         list = weatherPredict.daily.map((day, i) => {
+            let days = new Date()
             if (i > 0) {
-                let days = new Date()
                 days.setDate(days.getDate() + i)
-                return (<Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}
-                              key={i}>
-                    <CardContent sx={{p: 0}}>
-                        <List sx={{p: 0}}>
-                            <ListSubheader>{days.getUTCDate() + "th "}</ListSubheader>
-                            <ListItem sx={{px: 1}}>
-                                <ListItemIcon>
-                                    <WeatherIcon now={day.weather[0].main}/>
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={day.weather[0].main}/>
-                            </ListItem>
-                            <ListItem sx={{px: 1}}>
-                                <ListItemIcon>
-                                    <DeviceThermostatIcon/>
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={day.temp.day + "℃"}/>
-                            </ListItem>
-                            <ListItem sx={{display: "flex", p: 1}}>
-                                <ListItemText sx={{textAlign: 'center', borderRight: 1, borderColor: 'grey.500'}}
-                                              primary={"Min: " + day.temp.min + "℃"}/>
-                                <ListItemText sx={{textAlign: 'center'}}
-                                              primary={"Max: " + day.temp.max + "℃"}/>
-                            </ListItem>
-                            <ListItem sx={{px: 1}}>
-                                <ListItemIcon>
-                                    <AirIcon/>
-                                </ListItemIcon>
-                                <ListItemText primary={day.wind_speed + " m/h"}/>
-                            </ListItem>
-                        </List>
-                    </CardContent>
-                </Card>)
+                return (<WeatherPredictCard days={days} day={day} i={i} WeatherIcon={WeatherIcon}/>)
             }
         })
     }
