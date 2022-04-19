@@ -50,7 +50,7 @@ const Weather = React.memo((props) => {
             let days = new Date()
             if (i > 0) {
                 days.setDate(days.getDate() + i)
-                return (<WeatherPredictCard days={days} day={day} i={i} WeatherIcon={WeatherIcon}/>)
+                return (<WeatherPredictCard key={i} days={days} day={day} WeatherIcon={WeatherIcon}/>)
             }
         })
     }

@@ -7,12 +7,9 @@ import AirIcon from "@mui/icons-material/Air";
 import React from "react";
 import {Card, CardContent, ListItem} from "@mui/material";
 
-const WeatherPredictCard = ({days, day, i, WeatherIcon}) => {
-
-
+const WeatherPredictCard = ({days, day, WeatherIcon}) => {
     return (
-        <Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}
-              key={i}>
+        <Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}>
             <CardContent sx={{p: 0}}>
                 <List sx={{p: 0}}>
                     <ListSubheader>{days.getUTCDate() + "th "}</ListSubheader>

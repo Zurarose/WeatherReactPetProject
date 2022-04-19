@@ -12,6 +12,7 @@ const WeatherSelect = React.memo((props) => {
         const [optionsCountry, setOptionsCountry] = useState([]);
 
         const [active, setActive] = useState(true)
+
         const [valueCity, setValueCity] = useState(null);
         const [inputValueCity, setInputValueCity] = useState('');
         const [openCity, setOpenCity] = useState(false);
@@ -36,11 +37,11 @@ const WeatherSelect = React.memo((props) => {
         }, [openCountry]);
 
         useEffect(() => {
-            if (setOptionsCity.length !== 0) {
+            if (props.CitiesList.length !== 0) {
                 setActive(false)
             }
             setOptionsCity(props.CitiesList)
-        }, [loadingCities, props.CitiesList]);
+        }, [props.CitiesList]);
 
         useEffect(() => {
             if (!openCity) {
