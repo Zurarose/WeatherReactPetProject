@@ -43,15 +43,16 @@ const WeatherSelect = React.memo((props) => {
             setOptionsCity(props.CitiesList)
         }, [props.CitiesList]);
 
-        useEffect(() => {
-            if (!openCity) {
-                setOptionsCity([]);
-            }
-        }, [openCity]);
 
         function setWeather() {
             props.clearData()
             props.getWeatherThunk(valueCity)
+        }
+
+        function onCountryChange(event, newValue) {
+            setActive(true)
+            setValueCountry(newValue)
+            props.getCitiesThunk(newValue)
         }
 
         return (
@@ -59,9 +60,7 @@ const WeatherSelect = React.memo((props) => {
                 <Autocomplete
                     value={valueCountry}
                     onChange={(event, newValue) => {
-                        setActive(true)
-                        setValueCountry(newValue)
-                        props.getCitiesThunk(newValue)
+                        onCountryChange(event, newValue)
                     }}
                     inputValue={inputValueCountry}
                     onInputChange={(event, newInputValue) => {

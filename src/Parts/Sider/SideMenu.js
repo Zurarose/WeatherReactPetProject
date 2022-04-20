@@ -11,8 +11,11 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import CloudIcon from '@mui/icons-material/Cloud';
-import {Route, Routes} from "react-router-dom";
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import {Link, Route, Routes} from "react-router-dom";
 import WeatherContainer from "../Content/Weather/WeatherContainer";
+import ToDoListContainer from "../Content/ToDoList/ToDoListContainer";
+
 
 const drawerWidth = 200;
 const SideMenu = (props) => {
@@ -33,11 +36,17 @@ const SideMenu = (props) => {
 
                 </Toolbar>
                 <List>
-                    <ListItemButton  key={1}>
+                    <ListItemButton component={Link} to={"/"}>
                         <ListItemIcon>
                             <CloudIcon/>
                         </ListItemIcon>
                         <ListItemText primary="Weather"/>
+                    </ListItemButton>
+                    <ListItemButton component={Link} to={"/ToDoList"}>
+                        <ListItemIcon>
+                            <FormatListBulletedIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary="To do list"/>
                     </ListItemButton>
                 </List>
             </Drawer>
@@ -45,6 +54,7 @@ const SideMenu = (props) => {
             <Toolbar/>
             <Routes>
                 <Route index element={<WeatherContainer/>}/>
+                <Route path={"/ToDoList"} element={<ToDoListContainer/>}/>
             </Routes>
         </Box>
 </Box>

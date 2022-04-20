@@ -6,7 +6,7 @@ import {
     getStateCountriesList,
     getStateCurrentWeather, getStatePredictWeather,
     getSuperSelector
-} from "../../../Selectors/Selectors";
+} from "../../../Selectors/WeatherSelectors";
 
 
 function WeatherContainer(props){
