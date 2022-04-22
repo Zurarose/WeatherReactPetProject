@@ -1,36 +1,45 @@
-//Редьюсор, который создает action и общается с диспатчем
-import {PlacesAPI, WeatherAPI} from "../API/api";
-
-const consta = "consta"
+const CreateNewTask = "CreateNewTask"
+const CompleteTaks = "CompleteTaks"
 
 let initialState = {
-    data: [
-        {
-            id: "1",
-            title: "First",
-            description: "To do this"
-        },
-        {
-            id: "2",
-            title: "Second",
-            description: "To do this 2"
-        }
-    ]
+    data: [],
+    taskCount: 0,
+    completed: []
 }
 
 //Выбор действия в зависимости от type action
 function ToDoListReducer(state = initialState, action) {
     switch (action.type) {
+        case CreateNewTask:
+            return {
+                ...state,
+                data: [...state.data, action.data],
+                taskCount: state.taskCount + 1
+            }
+        case CompleteTaks:
+            let completed = [...state.data.filter(item => action.data.includes(item.id))]
+            return {
+                ...state,
+                data: [...state.data.filter(item => !action.data.includes(item.id))],
+                completed: [...state.completed, ...completed],
+            }
         default:
             return state
 
     }
 }
 
-export function getCities(param) {
+export function CreateTask(info) {
     return {
-        type: consta,
-        data: param
+        type: CreateNewTask,
+        data: {id: info.taskCountNew, title: info.titleValue, description: info.descValue}
+    }
+}
+
+export function CompleteTask(ids) {
+    return {
+        type: CompleteTaks,
+        data: ids
     }
 }
 
