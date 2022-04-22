@@ -3,22 +3,22 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 const DayTimer = (props) => {
-    const [dateValue, setDate] = useState({date: "", time: ""})
+    const [date, setDate] = useState(new Date());
 
-
-    useEffect(() => {
-        updateTime()
-    }, [dateValue])
-    const updateTime = () => {
-        let today = new Date();
-        let date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        let time = today.getHours() + ":" + today.getMinutes() + ":" + (today.getSeconds() < 10 ? "0" + today.getSeconds() : today.getSeconds());
-        setDate({date: date, time: time})
+    function refreshClock() {
+        setDate(new Date());
     }
+    useEffect(() => {
+        const timerId = setInterval(refreshClock, 1000);
+        return function cleanup() {
+            clearInterval(timerId);
+        };
+    }, []);
+
     return (
         <Box>
             <Typography textAlign='left' variant="h6">
-                {dateValue.date + " " + dateValue.time}
+                {date.toLocaleDateString() + " " + date.toLocaleTimeString()}
             </Typography>
         </Box>)
 }
