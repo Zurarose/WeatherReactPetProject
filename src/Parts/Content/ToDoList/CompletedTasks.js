@@ -17,22 +17,22 @@ const CompletedTasks = ({TaskCompleted}) => {
                 {TaskCompleted.map((item) => {
                     return (
                         <ListItem sx={{ml: 2}} key={item.id} dense>
-                                <ListItemIcon>
-                                    <Checkbox
-                                        edge="start"
-                                        checked={true}
-                                        disabled={true}
-                                        disableRipple
-                                        tabIndex={-1}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={item.title}
-                                    secondary={
-                                        <>
-                                            {item.description}
-                                        </>}
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={true}
+                                    disabled={true}
+                                    disableRipple
+                                    tabIndex={-1}
                                 />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={item.title}
+                                secondary={
+                                    <>
+                                        {item.description}
+                                    </>}
+                            />
                         </ListItem>)
                 })}
             </List>

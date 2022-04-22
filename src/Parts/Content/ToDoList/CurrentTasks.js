@@ -34,9 +34,10 @@ const CurrentTasks = (props) => {
             </Typography>
             <MyModal open={open} handleClose={handleClose} createTask={props.CreateTask} taskCount={props.TaskCount}/>
             <Button sx={{width: "50%", borderRadius: 0}} onClick={handleOpen} variant="outlined">Create tasks</Button>
-            <Button sx={{width: "50%", borderRadius: 0, borderLeft: 0}} onClick={() =>
-            {props.CompleteTask(checked)
-            setChecked([])}}
+            <Button sx={{width: "50%", borderRadius: 0, borderLeft: 0}} onClick={() => {
+                props.CompleteTask(checked)
+                setChecked([])
+            }}
                     disabled={completeActive} variant="outlined">Complete task</Button>
             <List sx={{width: '100%', bgcolor: 'background.paper'}}>
                 {props.TaskList.map((item, index) => {

@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import {useNavigate} from "react-router";
 import {connect} from "react-redux";
 
@@ -8,12 +8,12 @@ function mapStateToProps(state) {
     }
 }
 
-export const WithFactLoad = (Component) => {
+export const HOCTemp = (Component) => {
     class IsLoadedFact extends React.Component {
         render() {
-            /*if (!this.props.isLoaded) {
+            if (!this.props.isLoaded) {
                 return <div>Nothing to show</div>
-            }*/
+            }
             return (<Component {...this.props}/>)
 
         }
@@ -21,3 +21,4 @@ export const WithFactLoad = (Component) => {
     let connecteIsLoaded = connect(mapStateToProps)(IsLoadedFact)
     return connecteIsLoaded
 }
+*/

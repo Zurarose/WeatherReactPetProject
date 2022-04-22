@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
+
 const style = {
     position: 'absolute',
     top: '50%',
@@ -48,9 +49,11 @@ const MyModal = ({open, handleClose, createTask, taskCount}) => {
                     </Typography>
                     <form onSubmit={(e) => create(e)}>
                         <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <TextField required value={titleValue} onChange={(e) => setTitleValue(e.target.value)} sx={{m: 1}}
+                            <TextField required value={titleValue} onChange={(e) => setTitleValue(e.target.value)}
+                                       sx={{m: 1}}
                                        id="standard-basic" label="Title" variant="standard"/>
-                            <TextField required value={descValue} onChange={(e) => setDescValue(e.target.value)} sx={{m: 1}}
+                            <TextField required value={descValue} onChange={(e) => setDescValue(e.target.value)}
+                                       sx={{m: 1}}
                                        id="standard-basic" label="Description" variant="standard"/>
                             <Button type="submit" sx={{borderRadius: 0, m: 1}}
                                     variant="outlined">Create tasks</Button>

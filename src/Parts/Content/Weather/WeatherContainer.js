@@ -9,12 +9,12 @@ import {
 } from "../../../Selectors/WeatherSelectors";
 
 
-function WeatherContainer(props){
+function WeatherContainer(props) {
     return (<Weather {...props}/>)
 }
 
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {
         CountriesList: getSuperSelector(state),
         CitiesList: getStateCitiesList(state),
@@ -23,4 +23,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{getWeatherThunk, getCitiesThunk, getCountriesThunk})(WeatherContainer)
+export default connect(mapStateToProps, {getWeatherThunk, getCitiesThunk, getCountriesThunk})(WeatherContainer)
