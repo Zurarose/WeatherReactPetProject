@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-const DayTimer = (props) => {
+const DayTimer = () => {
     const [date, setDate] = useState(new Date());
 
     function refreshClock() {

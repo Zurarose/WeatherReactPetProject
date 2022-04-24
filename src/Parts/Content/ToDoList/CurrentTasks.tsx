@@ -1,14 +1,23 @@
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import CurrentTasksList from "./CurrentTasksList";
 import MyModal from "./MyModal";
 import Box from "@mui/material/Box";
+import {TaskType} from "../../../Types/Weather/ToDoListTypes";
 
-const CurrentTasks = (props) => {
+interface PropsType {
+    TaskList: ReadonlyArray<TaskType>
+    TaskCount: number
+
+    CreateTask: (data : TaskType) => void
+    CompleteTask: (data: Array<number>) => void
+}
+
+const CurrentTasks: React.FC<PropsType> = ({CompleteTask, CreateTask, TaskCount, TaskList}) => {
     const [checked, setChecked] = useState([]);
-    const handleToggle = (value) => () => {
+    const handleToggle = (value : never) => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
         if (currentIndex === -1) {
@@ -32,15 +41,15 @@ const CurrentTasks = (props) => {
             <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white'}}>
                 Current tasks
             </Typography>
-            <MyModal open={open} handleClose={handleClose} createTask={props.CreateTask} taskCount={props.TaskCount}/>
+            <MyModal open={open} handleClose={handleClose} createTask={CreateTask} taskCount={TaskCount}/>
             <Button sx={{width: "50%", borderRadius: 0}} onClick={handleOpen} variant="outlined">Create tasks</Button>
             <Button sx={{width: "50%", borderRadius: 0, borderLeft: 0}} onClick={() => {
-                props.CompleteTask(checked)
+                CompleteTask(checked)
                 setChecked([])
             }}
                     disabled={completeActive} variant="outlined">Complete task</Button>
             <List sx={{width: '100%', bgcolor: 'background.paper'}}>
-                {props.TaskList.map((item, index) => {
+                {TaskList && TaskList.map((item, index) => {
                     return (
                         <CurrentTasksList key={index} item={item} index={index}
                                           checked={checked} handleToggle={handleToggle}/>

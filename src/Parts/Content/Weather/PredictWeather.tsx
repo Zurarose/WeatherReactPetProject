@@ -6,8 +6,15 @@ import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import AirIcon from "@mui/icons-material/Air";
 import React from "react";
 import {Card, CardContent, ListItem} from "@mui/material";
+import {PredictType} from "../../../Types/Weather/WeatherTypes";
 
-const WeatherPredictCard = ({days, day, WeatherIcon}) => {
+interface PropsType {
+    [days: string] : any
+    day: PredictType | null
+    WeatherIcon: (weather: { now: string | null}) => JSX.Element
+}
+
+const PredictWeather = ({days, day, WeatherIcon} : PropsType) => {
     return (
         <Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}>
             <CardContent sx={{p: 0}}>
@@ -15,32 +22,32 @@ const WeatherPredictCard = ({days, day, WeatherIcon}) => {
                     <ListSubheader>{days.getUTCDate() + "th "}</ListSubheader>
                     <ListItem sx={{px: 1}}>
                         <ListItemIcon>
-                            <WeatherIcon now={day.weather[0].main}/>
+                            <WeatherIcon now={day && day.weather}/>
                         </ListItemIcon>
                         <ListItemText
-                            primary={day.weather[0].main}/>
+                            primary={day && day.weather}/>
                     </ListItem>
                     <ListItem sx={{px: 1}}>
                         <ListItemIcon>
                             <DeviceThermostatIcon/>
                         </ListItemIcon>
                         <ListItemText
-                            primary={day.temp.day + "℃"}/>
+                            primary={day && day.temp.day + "℃"}/>
                     </ListItem>
                     <ListItem sx={{display: "flex", p: 1}}>
                         <ListItemText sx={{textAlign: 'center', borderRight: 1, borderColor: 'grey.500'}}
-                                      primary={"Min: " + day.temp.min + "℃"}/>
+                                      primary={"Min: " + (day && day.temp.min) + "℃"}/>
                         <ListItemText sx={{textAlign: 'center'}}
-                                      primary={"Max: " + day.temp.max + "℃"}/>
+                                      primary={"Max: " + (day && day.temp.max) + "℃"}/>
                     </ListItem>
                     <ListItem sx={{px: 1}}>
                         <ListItemIcon>
                             <AirIcon/>
                         </ListItemIcon>
-                        <ListItemText primary={day.wind_speed + " m/h"}/>
+                        <ListItemText primary={day && day.wind_speed + " m/h"}/>
                     </ListItem>
                 </List>
             </CardContent>
         </Card>)
 }
-export default WeatherPredictCard
+export default PredictWeather

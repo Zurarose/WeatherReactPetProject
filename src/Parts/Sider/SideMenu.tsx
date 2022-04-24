@@ -19,7 +19,7 @@ const ToDoListContainer = React.lazy(() => import('../Content/ToDoList/ToDoListC
 
 
 const drawerWidth = 200;
-const SideMenu = (props) => {
+const SideMenu = () => {
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>

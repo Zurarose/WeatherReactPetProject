@@ -4,13 +4,21 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "@mui/material/Checkbox";
 import ListItem from "@mui/material/ListItem";
+import {TaskType} from "../../../Types/Weather/ToDoListTypes";
 
-const CurrentTasksList = ({item, handleToggle, index, checked}) => {
-    const labelId = `checkbox-list-label-${item.id}`;
+interface CurrentTasksListType {
+    item: TaskType
+    handleToggle: (value: never) => void
+    index: number
+    checked: Array<number>
+}
 
+const CurrentTasksList: React.FC<CurrentTasksListType> = ({item, handleToggle, index, checked}) => {
+    const labelId = `checkbox-list-label-${item.id}`
     return (
         <ListItem key={item.id} disablePadding>
-            <ListItemButton onClick={handleToggle(item.id)} dense>
+            {/* @ts-ignore */}
+            <ListItemButton onClick={() => handleToggle(item.id)} dense>
                 <ListItemText sx={{minWidth: 20, maxWidth: 20, mr: 1, color: 'black'}}
                               primary={index + 1}
                 />

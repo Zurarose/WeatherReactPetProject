@@ -1,28 +1,30 @@
-const CreateNewTask = "CreateNewTask"
-const completeTask = "CompleteTask"
+import {CompletedTaskType, TaskType} from "../Types/Weather/ToDoListTypes";
 
+const CreateNewTask = "CreateNewTask"
+const CompleteTask = "CompleteTask"
 
 
 let initialState = {
-    data: [],
+    tasks: [] as ReadonlyArray<TaskType> | [],
     taskCount: 0,
-    completed: []
+    completed: [] as ReadonlyArray<CompletedTaskType> | []
 }
 
-//Выбор действия в зависимости от type action
-function ToDoListReducer(state = initialState, action) {
+type initialStateType = typeof initialState
+
+function ToDoListReducer(state = initialState, action: ActionsTypes): initialStateType {
     switch (action.type) {
         case CreateNewTask:
             return {
                 ...state,
-                data: [...state.data, action.data],
+                tasks: [...state.tasks, action.data],
                 taskCount: state.taskCount + 1
             }
-        case completeTask:
-            let completed = [...state.data.filter(item => action.data.includes(item.id))]
+        case CompleteTask:
+            let completed = [...state.tasks.filter(item => action.data.includes(item.id))]
             return {
                 ...state,
-                data: [...state.data.filter(item => !action.data.includes(item.id))],
+                tasks: [...state.tasks.filter(item => !action.data.includes(item.id))],
                 completed: [...state.completed, ...completed],
             }
         default:
@@ -31,17 +33,29 @@ function ToDoListReducer(state = initialState, action) {
     }
 }
 
-export function CreateTaskAC(info) {
+type ActionsTypes = CreateTaskACType | CompleteTaskACType
+
+type CreateTaskACType = {
+    type: typeof CreateNewTask
+    data: TaskType
+}
+
+export function CreateTaskAC(data: TaskType): CreateTaskACType {
     return {
         type: CreateNewTask,
-        data: {id: info.taskCountNew, title: info.titleValue, description: info.descValue}
+        data: data
     }
 }
 
-export function CompleteTaskAC(ids) {
+type CompleteTaskACType = {
+    type: typeof CompleteTask
+    data: Array<number>
+}
+
+export function CompleteTaskAC(data: Array<number>): CompleteTaskACType {
     return {
-        type: completeTask,
-        data: ids
+        type: CompleteTask,
+        data: data
     }
 }
 

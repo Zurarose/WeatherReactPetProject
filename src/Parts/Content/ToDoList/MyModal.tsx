@@ -3,6 +3,7 @@ import {Backdrop, Fade, FormControl, Modal, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import {TaskType} from "../../../Types/Weather/ToDoListTypes";
 
 
 const style = {
@@ -17,15 +18,22 @@ const style = {
     p: 3,
 };
 
-const MyModal = ({open, handleClose, createTask, taskCount}) => {
-    const [titleValue, setTitleValue] = useState('')
-    const [descValue, setDescValue] = useState('')
+interface PropsType {
+    open : boolean
+    handleClose: () => void
+    taskCount: number
+    createTask: (data: TaskType) => void
+}
 
-    let taskCountNew = taskCount + 1
+const MyModal : React.FC<PropsType> = ({open, handleClose, createTask, taskCount}) => {
+    const [title, setTitleValue] = useState('')
+    const [description, setDescValue] = useState('')
 
-    const create = (e) => {
+    let id = taskCount + 1
+
+    const create = (e : React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
-        createTask({taskCountNew, titleValue, descValue})
+        createTask({id, title, description})
         setTitleValue("")
         setDescValue("")
         handleClose()
@@ -47,12 +55,12 @@ const MyModal = ({open, handleClose, createTask, taskCount}) => {
                     <Typography sx={{textAlign: 'center'}} variant="h6">
                         Create new task
                     </Typography>
-                    <form onSubmit={(e) => create(e)}>
+                    <form onSubmit={create}>
                         <Box sx={{display: 'flex', flexDirection: 'column'}}>
-                            <TextField required value={titleValue} onChange={(e) => setTitleValue(e.target.value)}
+                            <TextField required value={title} onChange={(e) => setTitleValue(e.target.value)}
                                        sx={{m: 1}}
                                        id="standard-basic" label="Title" variant="standard"/>
-                            <TextField required value={descValue} onChange={(e) => setDescValue(e.target.value)}
+                            <TextField required value={description} onChange={(e) => setDescValue(e.target.value)}
                                        sx={{m: 1}}
                                        id="standard-basic" label="Description" variant="standard"/>
                             <Button type="submit" sx={{borderRadius: 0, m: 1}}

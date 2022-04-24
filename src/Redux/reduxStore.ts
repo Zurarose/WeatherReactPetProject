@@ -4,15 +4,14 @@ import WeatherReducer from "./WeatherReducer";
 import { reducer as formReducer } from 'redux-form'
 import ToDoListReducer from "./ToDoListReducer";
 
-
-//сбор всех редьюсоров воедино и создание общего редьюсора
-let reducers = combineReducers({
+let rootReducers = combineReducers({
     WeatherPage: WeatherReducer,
     ToDoListPage: ToDoListReducer,
     form: formReducer
 })
 
-//создание стора из редьюсоров и данных внутри них
-let store = createStore(reducers, applyMiddleware(thunk));
+export type AppStateType = ReturnType<typeof rootReducers>
+
+let store = createStore(rootReducers, applyMiddleware(thunk));
 
 export default store

@@ -2,8 +2,19 @@ import Box from "@mui/material/Box";
 import DayTimer from "../../Utils/Timer/DayTimer";
 import CurrentTasks from "./CurrentTasks";
 import CompletedTasks from "./CompletedTasks";
+import React from "react";
+import {CompletedTaskType, TaskType} from "../../../Types/Weather/ToDoListTypes";
 
-const ToDoList = (props) => {
+interface PropsType {
+    TaskList: ReadonlyArray<TaskType>
+    TaskCount: number
+    TaskCompleted: ReadonlyArray<CompletedTaskType>
+
+    CreateTask: (data: TaskType) => void
+    CompleteTask: (data: Array<number>) => void
+}
+
+const ToDoList: React.FC<PropsType> = (props) => {
     return (<>
         <DayTimer/>
         <Box sx={{display: "flex", flexDirection: "row", mt: 1}}>

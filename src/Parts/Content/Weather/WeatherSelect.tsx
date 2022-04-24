@@ -1,26 +1,38 @@
-import React from "react";
+import React, {ChangeEvent, SyntheticEvent} from "react";
 import {useEffect, useState} from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import {PredictType, WeatherType} from "../../../Types/Weather/WeatherTypes";
 
-const WeatherSelect = React.memo((props) => {
-        const [valueCountry, setValueCountry] = useState(null);
-        const [inputValueCountry, setInputValueCountry] = useState('');
-        const [openCountry, setOpenCountry] = useState(false);
-        const [optionsCountry, setOptionsCountry] = useState([]);
+interface PropsType {
+    CountriesList: ReadonlyArray<string> | []
+    CitiesList: ReadonlyArray<string> | []
+    CurrentWeather: WeatherType | null
+    PredictWeather: ReadonlyArray<PredictType> | []
+
+    clearData: () => void
+    getWeatherThunk: (city: string) => void
+    getCountriesThunk: () => void
+    getCitiesThunk: (country: string) => void
+
+}
+
+const WeatherSelect = React.memo((props: PropsType) => {
+        const [valueCountry, setValueCountry] = useState<string | null>(null)
+        const [inputValueCountry, setInputValueCountry] = useState('')
+        const [openCountry, setOpenCountry] = useState(false)
+        const [optionsCountry, setOptionsCountry] = useState<ReadonlyArray<string> | []>([])
 
         const [active, setActive] = useState(true)
+        const [valueCity, setValueCity] = useState<string | null>(null)
+        const [inputValueCity, setInputValueCity] = useState('')
+        const [openCity, setOpenCity] = useState(false)
+        const [optionsCity, setOptionsCity] = useState<ReadonlyArray<string> | []>([])
 
-        const [valueCity, setValueCity] = useState(null);
-        const [inputValueCity, setInputValueCity] = useState('');
-        const [openCity, setOpenCity] = useState(false);
-        const [optionsCity, setOptionsCity] = useState([]);
-
-        const loadingCountries = openCountry && optionsCountry.length === 0;
-        const loadingCities = openCity && optionsCity.length === 0;
-
+        const loadingCountries = openCountry && optionsCountry.length === 0
+        const loadingCities = openCity && optionsCity.length === 0
 
         useEffect(() => {
             setOptionsCity([])
@@ -37,19 +49,18 @@ const WeatherSelect = React.memo((props) => {
         }, [openCountry]);
 
         useEffect(() => {
-            if (props.CitiesList.length !== 0) {
+            if (props.CitiesList) {
                 setActive(false)
             }
             setOptionsCity(props.CitiesList)
         }, [props.CitiesList]);
 
-
         function setWeather() {
             props.clearData()
-            props.getWeatherThunk(valueCity)
+            if (valueCity) props.getWeatherThunk(valueCity)
         }
 
-        function onCountryChange(event, newValue) {
+        function onCountryChange(newValue: string) {
             setActive(true)
             setValueCountry(newValue)
             props.getCitiesThunk(newValue)
@@ -60,13 +71,10 @@ const WeatherSelect = React.memo((props) => {
                 <Autocomplete
                     value={valueCountry}
                     onChange={(event, newValue) => {
-                        onCountryChange(event, newValue)
+                        newValue && onCountryChange(newValue)
                     }}
                     inputValue={inputValueCountry}
-                    onInputChange={(event, newInputValue) => {
-                        setInputValueCountry(newInputValue)
-                    }}
-
+                    onInputChange={(event, newInputValue) => setInputValueCountry(newInputValue)}
                     id="citySelect"
                     size="small"
                     sx={{width: 400}}
@@ -90,12 +98,10 @@ const WeatherSelect = React.memo((props) => {
                     disabled={active}
                     value={valueCity}
                     onChange={(event, newValue) => {
-                        setValueCity(newValue);
+                        newValue && setValueCity(newValue)
                     }}
                     inputValue={inputValueCity}
-                    onInputChange={(event, newInputValue) => {
-                        setInputValueCity(newInputValue);
-                    }}
+                    onInputChange={(event, newInputValue) => setInputValueCity(newInputValue)}
                     id="countrySelect"
                     size="small"
                     sx={{width: 300}}
