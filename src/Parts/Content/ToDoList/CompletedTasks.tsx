@@ -1,18 +1,18 @@
-import Typography from "@mui/material/Typography";
-import List from "@mui/material/List";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Checkbox from "@mui/material/Checkbox";
-import ListItem from "@mui/material/ListItem";
-import React from "react";
-import Box from "@mui/material/Box";
-import {CompletedTaskType} from "../../../Types/Weather/ToDoListTypes";
+import Typography from "@mui/material/Typography"
+import List from "@mui/material/List"
+import ListItemText from "@mui/material/ListItemText"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import Checkbox from "@mui/material/Checkbox"
+import ListItem from "@mui/material/ListItem"
+import React from "react"
+import Box from "@mui/material/Box"
+import {CompletedTaskType} from "../../../Types/Weather/ToDoListTypes"
 
 interface PropsType {
     TaskCompleted: ReadonlyArray<CompletedTaskType>
 }
 
-const CompletedTasks: React.FC<PropsType> = ({TaskCompleted}) => {
+const CompletedTasks = ({TaskCompleted} : PropsType) => {
     return (
         <Box>
             <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white'}}>

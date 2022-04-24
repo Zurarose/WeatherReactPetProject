@@ -1,4 +1,4 @@
-import React, {ChangeEvent, SyntheticEvent} from "react";
+import React from "react";
 import {useEffect, useState} from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
