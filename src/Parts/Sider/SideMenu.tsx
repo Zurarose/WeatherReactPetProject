@@ -14,6 +14,7 @@ import CloudIcon from '@mui/icons-material/Cloud';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import {Link, Route, Routes} from "react-router-dom";
 import WeatherContainer from "../Content/Weather/WeatherContainer";
+import Loader from "../Utils/Loader/Loader";
 
 const ToDoListContainer = React.lazy(() => import('../Content/ToDoList/ToDoListContainer'))
 
@@ -60,7 +61,7 @@ const SideMenu = () => {
                     <Route index element={<WeatherContainer/>}/>
 
                     <Route path={"/ToDoList"} element={
-                        <Suspense fallback={<div>Loading...</div>}><ToDoListContainer/></Suspense>}/>
+                        <Suspense fallback={<Loader/>}><ToDoListContainer/></Suspense>}/>
                 </Routes>
             </Box>
         </Box>

@@ -14,6 +14,7 @@ import PredictWeatherCard from "./PredictWeather";
 import CurrentWeatherCard from "./CurrentWeather";
 import Loader from "../../Utils/Loader/Loader";
 import {PredictType, WeatherType} from "../../../Types/Weather/WeatherTypes";
+import {LinearProgress} from "@mui/material";
 
 interface PropsType {
     CountriesList: ReadonlyArray<string> | []
@@ -72,38 +73,37 @@ const Weather = React.memo((props: PropsType) => {
         setWeatherPredict(props.PredictWeather)
     }, [props.PredictWeather])
     return (
-        <Box>
+        <div>
             <WeatherSelect {...props} clearData={clearData}/>
-            <Stack sx={{display: 'flex', pt: 3, borderBottom: 1, borderColor: 'grey.500'}}
-                   direction={{xs: 'column', sm: 'column', md: 'column', lg: 'row'}}>
-                <List
-                    sx={{
-                        width: {xs: '100%', sm: '100%', md: '100%', lg: '20%'},
-                        bgcolor: 'background.paper',
-                        borderRight: 1,
-                        borderColor: 'grey.500'
-                    }}
-                    component="nav" aria-labelledby="nested-list-subheader" subheader={
-                    <Typography variant="h5">Current weather</Typography>}>
-                    {currentWeather
-                        ? <CurrentWeatherCard currentWeather={props.CurrentWeather} WeatherIcon={WeatherIcon}/>
-                        : <Loader/>}
-                </List>
-                <Box sx={{width: {xs: '100%', sm: '100%', md: '100%', lg: '80%'}}}>
-                    <Typography sx={{textAlign: 'left', pl: 1}} variant="h5">Weather forecast for 7 days</Typography>
-                    <Stack sx={{display: "flex", flexDirection: "row", mt: 0}}>
-                        {predictWeather
-                            ? predictWeather.slice(1).map((day, i) => {
+            {(predictWeather && currentWeather)
+                ? <Stack sx={{display: 'flex', pt: 3, borderBottom: 1, borderColor: 'grey.500'}}
+                         direction={{xs: 'column', sm: 'column', md: 'column', lg: 'row'}}>
+                    <List
+                        sx={{
+                            width: {xs: '100%', sm: '100%', md: '100%', lg: '20%'},
+                            bgcolor: 'background.paper',
+                            borderRight: 1,
+                            borderColor: 'grey.500'
+                        }}
+                        component="nav" aria-labelledby="nested-list-subheader" subheader={
+                        <Typography variant="h5">Current weather</Typography>}>
+                        <CurrentWeatherCard currentWeather={props.CurrentWeather} WeatherIcon={WeatherIcon}/>
+                    </List>
+                    <Box sx={{width: {xs: '100%', sm: '100%', md: '100%', lg: '80%'}}}>
+                        <Typography sx={{textAlign: 'left', pl: 1}} variant="h5">Weather forecast for 7
+                            days</Typography>
+                        <Stack sx={{display: "flex", flexDirection: "row", mt: 0}}>
+                            {predictWeather.slice(1).map((day, i) => {
                                 let days = new Date()
                                 days.setDate(days.getDate() + i)
-                                return (
-                                    <PredictWeatherCard key={i} days={days} day={day} WeatherIcon={WeatherIcon}/>)
-                            })
-                            : <Loader/>}
-                    </Stack>
-                </Box>
-            </Stack>
-        </Box>
+                                return (<PredictWeatherCard key={i} days={days} day={day} WeatherIcon={WeatherIcon}/>)
+                            })}
+                        </Stack>
+                    </Box>
+                </Stack>
+                : <Loader/>}
+
+        </div>
     )
 });
 

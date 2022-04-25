@@ -38,7 +38,7 @@ const CurrentTasks = ({CompleteTask, CreateTask, TaskCount, TaskList}: PropsType
 
     return (
         <Box>
-            <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white'}}>
+            <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white', textAlign: 'center'}}>
                 Current tasks
             </Typography>
             <MyModal open={open} handleClose={handleClose} createTask={CreateTask} taskCount={TaskCount}/>

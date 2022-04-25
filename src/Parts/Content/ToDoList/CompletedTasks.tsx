@@ -15,7 +15,7 @@ interface PropsType {
 const CompletedTasks = ({TaskCompleted}: PropsType) => {
     return (
         <Box>
-            <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white'}}>
+            <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white', textAlign: 'center'}}>
                 Completed tasks
             </Typography>
             <List sx={{width: '100%', bgcolor: 'background.paper', marginTop: '36.5px'}}>
