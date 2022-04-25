@@ -17,11 +17,12 @@ interface MapDispatchToPropsType {
     CompleteTask: (data: Array<number>) => void
 }
 
-interface OwnPropsType {}
+interface OwnPropsType {
+}
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 
-const ToDoListContainer: React.FC<PropsType> = (props) => {
+const ToDoListContainer = (props: PropsType) => {
     return <ToDoList {...props}/>
 }
 

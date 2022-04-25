@@ -11,13 +11,13 @@ interface PropsType {
     TaskList: ReadonlyArray<TaskType>
     TaskCount: number
 
-    CreateTask: (data : TaskType) => void
+    CreateTask: (data: TaskType) => void
     CompleteTask: (data: Array<number>) => void
 }
 
-const CurrentTasks: React.FC<PropsType> = ({CompleteTask, CreateTask, TaskCount, TaskList}) => {
+const CurrentTasks = ({CompleteTask, CreateTask, TaskCount, TaskList}: PropsType) => {
     const [checked, setChecked] = useState([]);
-    const handleToggle = (value : never) => {
+    const handleToggle = (value: never) => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
         if (currentIndex === -1) {

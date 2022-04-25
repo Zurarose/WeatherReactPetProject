@@ -13,7 +13,7 @@ interface CurrentTasksListType {
     checked: Array<number>
 }
 
-const CurrentTasksList: React.FC<CurrentTasksListType> = ({item, handleToggle, index, checked}) => {
+const CurrentTasksList = ({item, handleToggle, index, checked} : CurrentTasksListType) => {
     const labelId = `checkbox-list-label-${item.id}`
     return (
         <ListItem key={item.id} disablePadding>

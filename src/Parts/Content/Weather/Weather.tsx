@@ -26,8 +26,8 @@ interface PropsType {
     getCitiesThunk: (country: string) => void
 }
 
-const Weather = React.memo((props : PropsType) => {
-    const WeatherIcon = (weather: { now: string | null}) => {
+const Weather = React.memo((props: PropsType) => {
+    const WeatherIcon = (weather: { now: string | null }) => {
         switch (weather.now) {
             case ("Clear"): {
                 return <WbSunnyIcon/>

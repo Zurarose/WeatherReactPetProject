@@ -9,12 +9,13 @@ import {Card, CardContent, ListItem} from "@mui/material";
 import {PredictType} from "../../../Types/Weather/WeatherTypes";
 
 interface PropsType {
-    [days: string] : any
+    [days: string]: any
+
     day: PredictType | null
-    WeatherIcon: (weather: { now: string | null}) => JSX.Element
+    WeatherIcon: (weather: { now: string | null }) => JSX.Element
 }
 
-const PredictWeather = ({days, day, WeatherIcon} : PropsType) => {
+const PredictWeather = ({days, day, WeatherIcon}: PropsType) => {
     return (
         <Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}>
             <CardContent sx={{p: 0}}>

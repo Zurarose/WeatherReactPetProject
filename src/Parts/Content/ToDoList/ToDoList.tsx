@@ -14,7 +14,7 @@ interface PropsType {
     CompleteTask: (data: Array<number>) => void
 }
 
-const ToDoList: React.FC<PropsType> = (props) => {
+const ToDoList = (props: PropsType) => {
     return (<>
         <DayTimer/>
         <Box sx={{display: "flex", flexDirection: "row", mt: 1}}>

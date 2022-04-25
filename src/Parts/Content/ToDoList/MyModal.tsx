@@ -19,19 +19,19 @@ const style = {
 };
 
 interface PropsType {
-    open : boolean
+    open: boolean
     handleClose: () => void
     taskCount: number
     createTask: (data: TaskType) => void
 }
 
-const MyModal : React.FC<PropsType> = ({open, handleClose, createTask, taskCount}) => {
+const MyModal = ({open, handleClose, createTask, taskCount}: PropsType) => {
     const [title, setTitleValue] = useState('')
     const [description, setDescValue] = useState('')
 
     let id = taskCount + 1
 
-    const create = (e : React.ChangeEvent<HTMLFormElement>) => {
+    const create = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault()
         createTask({id, title, description})
         setTitleValue("")

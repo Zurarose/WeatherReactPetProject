@@ -10,7 +10,7 @@ const DayTimer = () => {
     }
     useEffect(() => {
         const timerId = setInterval(refreshClock, 1000);
-        return function cleanup() {
+        return function () {
             clearInterval(timerId);
         };
     }, []);

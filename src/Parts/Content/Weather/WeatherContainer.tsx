@@ -21,11 +21,12 @@ interface MapDispatchToPropsType {
     getCitiesThunk: (country: string) => void
 }
 
-interface OwnPropsType {}
+interface OwnPropsType {
+}
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
 
-const WeatherContainer = (props : PropsType) => {
+const WeatherContainer = (props: PropsType) => {
     return (<Weather {...props}/>)
 }
 
