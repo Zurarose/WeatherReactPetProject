@@ -2,7 +2,7 @@ import Weather from "./Weather";
 import {connect} from "react-redux";
 import {getCitiesThunk, getCountriesThunk, getWeatherThunk} from "../../../Redux/WeatherReducer";
 import {
-    getStateCitiesList, getStateCurrentWeather, getStatePredictWeather, getSuperSelector
+    getStateCitiesList, getStateCurrentWeather, getStatePredictWeather, getSuperCountriesSelector
 } from "../../../Selectors/WeatherSelectors";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {PredictType, WeatherType} from "../../../Types/Weather/WeatherTypes";
@@ -32,7 +32,7 @@ const WeatherContainer = (props: PropsType) => {
 
 function mapStateToProps(state: AppStateType): MapStateToPropsType {
     return {
-        CountriesList: getSuperSelector(state),
+        CountriesList: getSuperCountriesSelector(state),
         CitiesList: getStateCitiesList(state),
         CurrentWeather: getStateCurrentWeather(state),
         PredictWeather: getStatePredictWeather(state)

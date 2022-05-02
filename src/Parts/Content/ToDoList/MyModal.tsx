@@ -25,7 +25,7 @@ interface PropsType {
     createTask: (data: TaskType) => void
 }
 
-const MyModal = ({open, handleClose, createTask, taskCount}: PropsType) => {
+const MyModal = (({open, handleClose, createTask, taskCount}: PropsType) => {
     const [title, setTitleValue] = useState('')
     const [description, setDescValue] = useState('')
 
@@ -72,6 +72,6 @@ const MyModal = ({open, handleClose, createTask, taskCount}: PropsType) => {
             </Fade>
         </Modal>
     );
-};
+})
 
 export default MyModal;

@@ -1,9 +1,9 @@
-export type TaskType = {
+export interface TaskType {
     id: number
     title: string
     description: string
 }
-export type CompletedTaskType = {
+export interface CompletedTaskType {
     id: number
     title: string
     description: string

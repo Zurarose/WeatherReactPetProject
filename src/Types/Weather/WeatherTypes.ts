@@ -1,10 +1,10 @@
-export type CountriesType = {
+export interface CountriesType {
     name: string
     iso2: string
     long: number
     lat: number
 }
-export type PredictType = {
+export interface PredictType {
     [weather: string] : any
     temp: {
         day: number
@@ -14,7 +14,7 @@ export type PredictType = {
     wind_speed: number
 }
 
-export type WeatherType = {
+export interface WeatherType {
     weather: string
     coord: {
         lon: number

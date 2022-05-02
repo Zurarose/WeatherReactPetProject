@@ -15,7 +15,7 @@ interface PropsType {
     CompleteTask: (data: Array<number>) => void
 }
 
-const CurrentTasks = ({CompleteTask, CreateTask, TaskCount, TaskList}: PropsType) => {
+const CurrentTasks = (({CompleteTask, CreateTask, TaskCount, TaskList}: PropsType) => {
     const [checked, setChecked] = useState([]);
     const handleToggle = (value: never) => {
         const currentIndex = checked.indexOf(value);
@@ -46,8 +46,7 @@ const CurrentTasks = ({CompleteTask, CreateTask, TaskCount, TaskList}: PropsType
             <Button sx={{width: "50%", borderRadius: 0, borderLeft: 0}} onClick={() => {
                 CompleteTask(checked)
                 setChecked([])
-            }}
-                    disabled={completeActive} variant="outlined">Complete task</Button>
+            }} disabled={completeActive} variant="outlined">Complete task</Button>
             <List sx={{width: '100%', bgcolor: 'background.paper'}}>
                 {TaskList && TaskList.map((item, index) => {
                     return (
@@ -58,5 +57,5 @@ const CurrentTasks = ({CompleteTask, CreateTask, TaskCount, TaskList}: PropsType
             </List>
         </Box>
     )
-}
+})
 export default CurrentTasks

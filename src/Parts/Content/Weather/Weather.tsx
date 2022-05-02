@@ -14,7 +14,6 @@ import PredictWeatherCard from "./PredictWeather";
 import CurrentWeatherCard from "./CurrentWeather";
 import Loader from "../../Utils/Loader/Loader";
 import {PredictType, WeatherType} from "../../../Types/Weather/WeatherTypes";
-import {LinearProgress} from "@mui/material";
 
 interface PropsType {
     CountriesList: ReadonlyArray<string> | []
@@ -27,7 +26,7 @@ interface PropsType {
     getCitiesThunk: (country: string) => void
 }
 
-const Weather = React.memo((props: PropsType) => {
+const Weather = ((props: PropsType) => {
     const WeatherIcon = (weather: { now: string | null }) => {
         switch (weather.now) {
             case ("Clear"): {

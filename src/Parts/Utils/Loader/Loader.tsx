@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, LinearProgress} from "@mui/material";
+import {LinearProgress} from "@mui/material";
 
 const Loader = () => {
     return (
@@ -7,4 +7,4 @@ const Loader = () => {
     );
 };
 
-export default Loader;
+export default Loader

@@ -19,7 +19,7 @@ interface PropsType {
 
 }
 
-const WeatherSelect = React.memo((props: PropsType) => {
+const WeatherSelect = ((props: PropsType) => {
         const [valueCountry, setValueCountry] = useState<string | null>(null)
         const [inputValueCountry, setInputValueCountry] = useState('')
         const [openCountry, setOpenCountry] = useState(false)

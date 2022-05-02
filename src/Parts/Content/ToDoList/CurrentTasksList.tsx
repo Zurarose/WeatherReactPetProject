@@ -13,7 +13,7 @@ interface CurrentTasksListType {
     checked: Array<number>
 }
 
-const CurrentTasksList = ({item, handleToggle, index, checked} : CurrentTasksListType) => {
+const CurrentTasksList = React.memo(({item, handleToggle, index, checked} : CurrentTasksListType) => {
     const labelId = `checkbox-list-label-${item.id}`
     return (
         <ListItem key={item.id} disablePadding>
@@ -41,6 +41,6 @@ const CurrentTasksList = ({item, handleToggle, index, checked} : CurrentTasksLis
             </ListItemButton>
         </ListItem>
     );
-};
+})
 
 export default CurrentTasksList;

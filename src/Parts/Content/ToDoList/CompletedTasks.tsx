@@ -12,7 +12,7 @@ interface PropsType {
     TaskCompleted: ReadonlyArray<CompletedTaskType>
 }
 
-const CompletedTasks = ({TaskCompleted}: PropsType) => {
+const CompletedTasks = React.memo(({TaskCompleted}: PropsType) => {
     return (
         <Box>
             <Typography variant="h6" sx={{bgcolor: '#1976d3', color: 'white', textAlign: 'center'}}>
@@ -43,6 +43,6 @@ const CompletedTasks = ({TaskCompleted}: PropsType) => {
             </List>
         </Box>
     )
+})
 
-}
 export default CompletedTasks

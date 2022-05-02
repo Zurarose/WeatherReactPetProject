@@ -14,7 +14,7 @@ interface PropsType {
     CompleteTask: (data: Array<number>) => void
 }
 
-const ToDoList = (props: PropsType) => {
+const ToDoList = React.memo((props: PropsType) => {
     return (<>
         <DayTimer/>
         <Box sx={{display: "flex", flexDirection: "row", mt: 1}}>
@@ -27,5 +27,5 @@ const ToDoList = (props: PropsType) => {
         </Box>
     </>);
 
-}
+})
 export default ToDoList

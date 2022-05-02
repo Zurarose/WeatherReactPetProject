@@ -15,7 +15,7 @@ interface PropsType {
     WeatherIcon: (weather: { now: string | null }) => JSX.Element
 }
 
-const PredictWeather = ({days, day, WeatherIcon}: PropsType) => {
+const PredictWeather = React.memo(({days, day, WeatherIcon}: PropsType) => {
     return (
         <Card sx={{boxShadow: 0, borderRight: 1, borderRadius: 0, mt: 2, borderColor: 'grey.500'}}>
             <CardContent sx={{p: 0}}>
@@ -50,5 +50,5 @@ const PredictWeather = ({days, day, WeatherIcon}: PropsType) => {
                 </List>
             </CardContent>
         </Card>)
-}
+})
 export default PredictWeather

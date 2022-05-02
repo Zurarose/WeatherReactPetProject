@@ -27,7 +27,7 @@ export const WeatherAPI = {
             })
     },
     WeatherDataSevenDays(lat: number, lon: number) {
-        return WeatherData.get("onecall?lat=" + lat + "&lon=" + lon +
+        return WeatherData("onecall?lat=" + lat + "&lon=" + lon +
             "&exclude=hourly,minutely,current&units=metric&appid=" + api)
             .then((response) => {
                 return response.data.daily.map(((daily: PredictType) => {

@@ -11,10 +11,10 @@ import {WeatherType} from "../../../Types/Weather/WeatherTypes";
 
 interface PropsType {
     currentWeather: WeatherType | null
-    WeatherIcon: (weather: { now: string | null}) => JSX.Element
+    WeatherIcon: (weather: { now: string | null }) => JSX.Element
 }
 
-const CurrentWeather = ({currentWeather, WeatherIcon} : PropsType) => {
+const CurrentWeather = React.memo(({currentWeather, WeatherIcon}: PropsType) => {
     return (
         <>
             <ListSubheader>{`City, Country`}</ListSubheader>
@@ -22,7 +22,8 @@ const CurrentWeather = ({currentWeather, WeatherIcon} : PropsType) => {
                 <ListItemIcon>
                     <LocationOnIcon/>
                 </ListItemIcon>
-                <ListItemText primary={currentWeather && currentWeather.place.city + ", " + currentWeather.place.country}/>
+                <ListItemText
+                    primary={currentWeather && currentWeather.place.city + ", " + currentWeather.place.country}/>
             </ListItem>
             <ListSubheader>{`Weather information`}</ListSubheader>
             <ListItem>
@@ -52,6 +53,6 @@ const CurrentWeather = ({currentWeather, WeatherIcon} : PropsType) => {
             </ListItem>
         </>
     );
-};
+})
 
 export default CurrentWeather;

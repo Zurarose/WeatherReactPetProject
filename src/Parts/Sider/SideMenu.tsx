@@ -18,9 +18,8 @@ import Loader from "../Utils/Loader/Loader";
 
 const ToDoListContainer = React.lazy(() => import('../Content/ToDoList/ToDoListContainer'))
 
-
 const drawerWidth = 200;
-const SideMenu = () => {
+const SideMenu = React.memo(() => {
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -59,13 +58,11 @@ const SideMenu = () => {
                 <Toolbar/>
                 <Routes>
                     <Route index element={<WeatherContainer/>}/>
-
                     <Route path={"/ToDoList"} element={
                         <Suspense fallback={<Loader/>}><ToDoListContainer/></Suspense>}/>
                 </Routes>
             </Box>
         </Box>
     )
-        ;
-}
+})
 export default SideMenu

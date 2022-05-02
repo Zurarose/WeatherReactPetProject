@@ -13,7 +13,7 @@ export function getStateCountriesList(state: AppStateType) {
     return state.WeatherPage.countries
 }
 
-export const getSuperSelector = createSelector(getStateCountriesList, (countries) => {
+export const getSuperCountriesSelector = createSelector(getStateCountriesList, (countries) => {
     if (countries) {
         return countries.map((c) => {
             return c.name
